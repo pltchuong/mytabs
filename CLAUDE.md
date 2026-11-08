@@ -9,6 +9,8 @@ In `songs.json`, each song's `content` is an array of strings:
 - `[C]lyrics` - inline chord before the text it applies to
 - `[Verse 1]` on its own line - section header (regex: `/^\[([A-Za-z0-9 ]+)\]$/`)
 - `""` - blank line
+- Songs sorted by `id` alphabetically
+- For slash chords (`A/C#`), keep only the root (`A`)
 
 ## Data model
 
