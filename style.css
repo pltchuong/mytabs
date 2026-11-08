@@ -1,0 +1,259 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  touch-action: manipulation;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  background: #f5f5f7;
+  color: #222;
+  max-width: 100%;
+  margin: 0 auto;
+  min-height: 100vh;
+  padding: 0 16px 70px;
+}
+
+.header {
+  padding: 16px 0 8px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.header h1 {
+  font-size: 20px;
+  font-weight: 700;
+  color: #111;
+}
+
+.song-list {
+  list-style: none;
+}
+
+.song-list li {
+  padding: 14px 0;
+  border-bottom: 1px solid #ddd;
+  cursor: pointer;
+}
+
+.song-list li:active {
+  background: #e8e8ee;
+}
+
+.song-title {
+  font-size: 16px;
+  font-weight: 600;
+  color: #111;
+}
+
+.song-artist {
+  font-size: 13px;
+  color: #777;
+  margin-top: 2px;
+}
+
+.song-view {
+  display: none;
+}
+
+.song-view.active {
+  display: block;
+}
+
+.back-btn {
+  background: none;
+  border: none;
+  color: #4a5ab8;
+  font-size: 15px;
+  cursor: pointer;
+  padding: 8px 0;
+}
+
+.song-header {
+  padding: 8px 0 16px;
+}
+
+.song-header h2 {
+  font-size: 20px;
+  color: #111;
+}
+
+.song-header .artist {
+  font-size: 14px;
+  color: #777;
+}
+
+.profile-bar {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 12px;
+  flex-wrap: wrap;
+}
+
+.profile-btn {
+  padding: 8px 16px;
+  border: 2px solid #ccc;
+  border-radius: 8px;
+  background: #fff;
+  color: #777;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.profile-btn.active {
+  border-color: #4a5ab8;
+  color: #4a5ab8;
+  background: rgba(74, 90, 184, 0.08);
+}
+
+.profile-add-btn {
+  border-style: dashed;
+  color: #aaa;
+}
+
+.bottom-bar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  padding: 10px 16px;
+  background: #fff;
+  border-top: 1px solid #ddd;
+  z-index: 10;
+}
+
+.transpose-bar {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+}
+
+.transpose-btn {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  border: 1px solid #ccc;
+  background: #fff;
+  color: #444;
+  font-size: 14px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.transpose-btn:active {
+  background: #e8e8ee;
+}
+
+.transpose-label {
+  font-size: 12px;
+  color: #555;
+  white-space: nowrap;
+}
+
+.transpose-label strong {
+  color: #4a5ab8;
+  font-size: 14px;
+  font-family: "SF Mono", "Fira Code", "Courier New", monospace;
+}
+
+.chord-line-break {
+  height: 12px;
+}
+
+.section-name {
+  font-size: 13px;
+  font-weight: 700;
+  color: #4a5ab8;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 8px;
+}
+
+.chord-line {
+  margin-bottom: 8px;
+  font-size: inherit;
+  color: #333;
+  line-height: 1.8;
+}
+
+.chord {
+  font-weight: 700;
+  color: #f02e6b;
+  font-family: "SF Mono", "Fira Code", "Courier New", monospace;
+}
+
+.auth-buttons {
+  display: flex;
+  gap: 8px;
+}
+
+.auth-btn {
+  padding: 6px 14px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  background: #fff;
+  color: #4a5ab8;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.auth-btn:active {
+  background: #e8e8ee;
+}
+
+.search-box {
+  width: 100%;
+  padding: 10px 14px;
+  border: 2px solid #ccc;
+  border-radius: 8px;
+  background: #fff;
+  color: #222;
+  font-size: 15px;
+  outline: none;
+  margin-bottom: 8px;
+}
+
+.search-box:focus {
+  border-color: #4a5ab8;
+}
+
+.search-box::placeholder {
+  color: #aaa;
+}
+
+@media (min-width: 600px) {
+  body {
+    max-width: 700px;
+    padding: 0 32px 40px;
+  }
+
+  .header h1 {
+    font-size: 24px;
+  }
+
+  .song-header h2 {
+    font-size: 24px;
+  }
+
+  .song-list li:hover {
+    background: #e8e8ee;
+  }
+}
+
+@media (min-width: 1024px) {
+  body {
+    max-width: 600px;
+    padding: 0 48px 80px;
+  }
+}

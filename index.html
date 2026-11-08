@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <title>MyTabs</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore-compat.js"></script>
+</head>
+<body>
+
+  <!-- Song List View -->
+  <div id="list-view">
+    <div class="header">
+      <h1>MyTabs</h1>
+      <div class="auth-buttons">
+        <button onclick="signIn()" class="auth-btn" id="sign-in-btn">Sign In</button>
+        <button onclick="signOut()" class="auth-btn" id="sign-out-btn" style="display:none">Sign Out</button>
+      </div>
+    </div>
+    <input type="text" id="search" class="search-box" placeholder="Search songs...">
+    <ul id="song-list" class="song-list"></ul>
+  </div>
+
+  <!-- Song Detail View -->
+  <div id="song-view" class="song-view">
+    <button class="back-btn" onclick="closeSong()">Back</button>
+
+    <div class="song-header">
+      <h2 id="song-title"></h2>
+      <div class="artist" id="song-artist"></div>
+    </div>
+
+    <!-- Profile switcher -->
+    <div id="profile-bar" class="profile-bar"></div>
+
+    <!-- Chord sections -->
+    <div id="sections"></div>
+
+    <!-- Sticky bottom controls -->
+    <div class="bottom-bar">
+      <div class="transpose-bar">
+        <button class="transpose-btn" onclick="transpose(-1)">-</button>
+        <span class="transpose-label">Key: <strong id="current-key"></strong></span>
+        <button class="transpose-btn" onclick="transpose(1)">+</button>
+      </div>
+      <div class="transpose-bar">
+        <button class="transpose-btn" onclick="adjustCapo(-1)">-</button>
+        <span class="transpose-label">Capo: <strong id="current-capo">0</strong></span>
+        <button class="transpose-btn" onclick="adjustCapo(1)">+</button>
+      </div>
+      <div class="transpose-bar">
+        <button class="transpose-btn" onclick="adjustSize(-1)">-</button>
+        <span class="transpose-label">Size: <strong id="current-size">16</strong></span>
+        <button class="transpose-btn" onclick="adjustSize(1)">+</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
