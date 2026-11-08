@@ -24,6 +24,10 @@ let currentProfile = null;
 let transposeOffset = 0;
 let capoPosition = 0;
 let fontSize = 16;
+let scrollSpeed = 0;
+let scrollInterval = null;
+let scrolling = false;
+let scrollAccumulator = 0;
 
 function getData() {
   const stored = localStorage.getItem(STORAGE_KEY);
@@ -53,7 +57,7 @@ function savePrefs() {
   if (!currentSong) return;
   const data = getData();
   if (!data.profiles[currentProfile]) data.profiles[currentProfile] = {};
-  data.profiles[currentProfile][currentSong.id] = { transposeOffset, capoPosition, fontSize };
+  data.profiles[currentProfile][currentSong.id] = { transposeOffset, capoPosition, fontSize, scrollSpeed };
   saveData(data);
 }
 
@@ -64,10 +68,12 @@ function loadPrefs(profileId, songId) {
     transposeOffset = prefs.transposeOffset || 0;
     capoPosition = prefs.capoPosition || 0;
     fontSize = prefs.fontSize || 16;
+    scrollSpeed = prefs.scrollSpeed || 1;
   } else {
     transposeOffset = 0;
     capoPosition = 0;
     fontSize = 16;
+    scrollSpeed = 1;
   }
 }
 
@@ -203,6 +209,7 @@ function showSong(id) {
 
 function showList() {
   currentSong = null;
+  stopScroll();
   document.getElementById('list-view').style.display = 'block';
   document.getElementById('song-view').classList.remove('active');
 }
@@ -256,9 +263,11 @@ function renderSong() {
   document.getElementById('current-key').textContent = currentKey + offsetLabel;
   document.getElementById('current-capo').textContent = capoPosition;
   document.getElementById('current-size').textContent = fontSize;
+  document.getElementById('scroll-speed').value = scrollSpeed;
 
   const sectionsEl = document.getElementById('sections');
   sectionsEl.style.fontSize = fontSize + 'px';
+  sectionsEl.style.lineHeight = (1.4 + (16 - fontSize) * 0.02).toFixed(2);
   sectionsEl.innerHTML = currentSong.content.map(line => {
     if (line === '') return '<div class="chord-line-break"></div>';
     const sectionMatch = line.match(SECTION_REGEX);
@@ -282,8 +291,45 @@ function adjustCapo(direction) {
 function adjustSize(direction) {
   fontSize = Math.max(10, Math.min(28, fontSize + direction));
   document.getElementById('current-size').textContent = fontSize;
-  document.getElementById('sections').style.fontSize = fontSize + 'px';
+  const sectionsEl = document.getElementById('sections');
+  sectionsEl.style.fontSize = fontSize + 'px';
+  sectionsEl.style.lineHeight = (1.4 + (16 - fontSize) * 0.02).toFixed(2);
   savePrefs();
+}
+
+function setScrollSpeed(value) {
+  scrollSpeed = parseInt(value);
+  savePrefs();
+  if (scrolling) {
+    stopScroll();
+    startScroll();
+  }
+}
+
+function toggleScroll() {
+  if (scrolling) {
+    stopScroll();
+  } else {
+    startScroll();
+  }
+}
+
+function startScroll() {
+  if (scrollSpeed === 0 || scrollInterval) return;
+  scrolling = true;
+  document.getElementById('scroll-toggle').textContent = '■';
+  scrollInterval = setInterval(() => {
+    window.scrollBy(0, 1);
+  }, Math.round(500 / scrollSpeed));
+}
+
+function stopScroll() {
+  scrolling = false;
+  document.getElementById('scroll-toggle').textContent = '▶';
+  if (scrollInterval) {
+    clearInterval(scrollInterval);
+    scrollInterval = null;
+  }
 }
 
 function signIn() {

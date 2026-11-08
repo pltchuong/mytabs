@@ -43,20 +43,27 @@
 
     <!-- Sticky bottom controls -->
     <div class="bottom-bar">
-      <div class="transpose-bar">
-        <button class="transpose-btn" onclick="transpose(-1)">-</button>
-        <span class="transpose-label">Key: <strong id="current-key"></strong></span>
-        <button class="transpose-btn" onclick="transpose(1)">+</button>
+      <div class="bottom-bar-row">
+        <div class="transpose-bar">
+          <button class="transpose-btn" onclick="transpose(-1)">-</button>
+          <span class="transpose-label">Key: <strong id="current-key"></strong></span>
+          <button class="transpose-btn" onclick="transpose(1)">+</button>
+        </div>
+        <div class="transpose-bar">
+          <button class="transpose-btn" onclick="adjustCapo(-1)">-</button>
+          <span class="transpose-label">Capo: <strong id="current-capo">0</strong></span>
+          <button class="transpose-btn" onclick="adjustCapo(1)">+</button>
+        </div>
+        <div class="transpose-bar">
+          <button class="transpose-btn" onclick="adjustSize(-1)">-</button>
+          <span class="transpose-label">Size: <strong id="current-size">16</strong></span>
+          <button class="transpose-btn" onclick="adjustSize(1)">+</button>
+        </div>
       </div>
-      <div class="transpose-bar">
-        <button class="transpose-btn" onclick="adjustCapo(-1)">-</button>
-        <span class="transpose-label">Capo: <strong id="current-capo">0</strong></span>
-        <button class="transpose-btn" onclick="adjustCapo(1)">+</button>
-      </div>
-      <div class="transpose-bar">
-        <button class="transpose-btn" onclick="adjustSize(-1)">-</button>
-        <span class="transpose-label">Size: <strong id="current-size">16</strong></span>
-        <button class="transpose-btn" onclick="adjustSize(1)">+</button>
+      <div class="scroll-bar-row">
+        <span class="transpose-label">Auto scroll:</span>
+        <input type="range" id="scroll-speed" class="scroll-slider" min="1" max="10" value="1" oninput="setScrollSpeed(this.value)">
+        <button class="transpose-btn" id="scroll-toggle" onclick="toggleScroll()">&#9654;</button>
       </div>
     </div>
   </div>
