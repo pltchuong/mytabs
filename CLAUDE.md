@@ -1,20 +1,30 @@
 # MyTabs
 
-Personal guitar/piano chord chart app to replace generic tab sites.
+Personal chord chart app. Remembers per-profile key, capo, and font size preferences for each song.
 
-## Why
+## Song format
 
-Generic tab sites don't remember per-person key/capo preferences for songs.
+In `songs.json`, each song's `content` is an array of strings:
 
-## Stack
+- `[C]lyrics` - inline chord before the text it applies to
+- `[Verse 1]` on its own line - section header (regex: `/^\[([A-Za-z0-9 ]+)\]$/`)
+- `""` - blank line
 
-- Static HTML/JS (no framework, no server)
-- JSON files for song data
-- Hosted on GitHub Pages
-- Mobile-first responsive design
+## Data model
 
-## Features
+One object in localStorage (`mytabs:data`) and Firestore (`users/{uid}`):
 
-- Two voice profiles: Phan (male) and a female singer
-- Each profile stores preferred key and capo per song
-- Chord chart format: lyrics with chord names above (not tablature)
+```json
+{
+  "profiles": { "Name": { "song-id": { "transposeOffset": 0, "capoPosition": 0, "fontSize": 16 } } },
+  "activeProfile": "Name",
+  "stats": { "song-id": 3 }
+}
+```
+
+## Sync
+
+- Firebase is source of truth when signed in
+- On auth: pull from Firestore into localStorage
+- On change: write to both localStorage and Firestore
+- No merge, no timestamps
