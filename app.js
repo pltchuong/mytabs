@@ -300,8 +300,18 @@ function adjustSize(direction) {
 function setScrollSpeed(value) {
   scrollSpeed = parseInt(value);
   savePrefs();
-  stopScroll();
-  startScroll();
+  if (scrolling) {
+    stopScroll();
+    startScroll();
+  }
+}
+
+function toggleScroll() {
+  if (scrolling) {
+    stopScroll();
+  } else {
+    startScroll();
+  }
 }
 
 function startScroll() {
