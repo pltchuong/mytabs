@@ -73,7 +73,7 @@ function loadPrefs(profileId, songId) {
     transposeOffset = 0;
     capoPosition = 0;
     fontSize = 16;
-    scrollSpeed = 1;
+    scrollSpeed = 0;
   }
 }
 
@@ -300,24 +300,13 @@ function adjustSize(direction) {
 function setScrollSpeed(value) {
   scrollSpeed = parseInt(value);
   savePrefs();
-  if (scrolling) {
-    stopScroll();
-    startScroll();
-  }
-}
-
-function toggleScroll() {
-  if (scrolling) {
-    stopScroll();
-  } else {
-    startScroll();
-  }
+  stopScroll();
+  startScroll();
 }
 
 function startScroll() {
   if (scrollSpeed === 0 || scrollInterval) return;
   scrolling = true;
-  document.getElementById('scroll-toggle').textContent = '■';
   scrollInterval = setInterval(() => {
     window.scrollBy(0, 1);
   }, Math.round(500 / scrollSpeed));
@@ -325,7 +314,6 @@ function startScroll() {
 
 function stopScroll() {
   scrolling = false;
-  document.getElementById('scroll-toggle').textContent = '▶';
   if (scrollInterval) {
     clearInterval(scrollInterval);
     scrollInterval = null;
